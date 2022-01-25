@@ -31,7 +31,7 @@ var incorrectAnswer = document.createElement("h3")
 
 // add text content
 h1El.textContent = "Coding Quiz";
-parEl.textContent = "Try to answer the following coding        questions within the time limit. Note that you will be penalized 10 seconds for each incorrect answer! Good luck!";
+parEl.textContent = "Try to answer the following coding questions within the time limit. Note that you will be penalized 10 seconds for each incorrect answer! Good luck!";
 startButton.textContent = "Start Quiz!"
 correctAnswer.textContent = "Correct!"
 incorrectAnswer.textContent = "Incorrect!"
@@ -105,6 +105,7 @@ var showNextQuestion = function() {
     var answerLabel;
     var answerButton;
     
+    console.log(questionObj);
     for (var i = 0; i < questionObj.answers.length; i++) {
         // get answers from array
         answerLabel = questionObj.answers[i];
@@ -115,19 +116,34 @@ var showNextQuestion = function() {
         if (answerLabel === questionObj.correctAnswer) {
             answerButton.dataset.correct = true;
         }
-    }
-
-    answerDiv.appendChild(answerButton);
-   
-    // add event listener to buttons
-    answerButton.addEventListener("click", function() {
-    if (this.dataset.correct === "true") {
-        answerDiv.appendChild(correctAnswer);
-    } else {
-        answerDiv.appendChild(incorrectAnswer)
-        timeLeft -= 10;
-    }
-    showNextQuestion();
     
-    });
+
+        // add event listener to buttons
+        answerButton.addEventListener("click", function() {
+        if (this.dataset.correct === "true") {
+            answerDiv.appendChild(correctAnswer);
+        } else {
+            answerDiv.appendChild(incorrectAnswer)
+            timeLeft -= 10;
+        }
+        showNextQuestion();
+        });
+    }
+    // render 4 possible answers
+
+    // select each answer
+
+    // create 4 buttons
+    
+    // append to page
+    
+
+    console.log(answerLabel);
+ 
+    body.appendChild(answerButton)
+
+
+    // each click must respond to a click event
+
 }
+
