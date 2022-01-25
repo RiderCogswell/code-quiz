@@ -1,5 +1,20 @@
 // declare timer variable
-var timerEl = document.getElementById("countdown")
+var timerEl = document.getElementById("countdown");
+// declare global variables// show where you are in the array
+    var currentQuestionIndex = 0;
+    
+var body = document.body;
+var answerDiv = document.querySelector(".answers")
+var startButton = document.querySelector(".div-button");
+var divHeader = document.querySelector(".welcome");
+var correctAnswer = document.createElement("h3");
+var incorrectAnswer = document.createElement("h3");
+var answerLabel;
+var answerButton;
+var timeLeft;
+// text content
+correctAnswer.textContent = "Correct!";
+incorrectAnswer.textContent = "Incorrect!";
 
 // timer function
 var startTimer = function() {
@@ -10,48 +25,11 @@ var startTimer = function() {
             timerEl.textContent = "Time: " + timeLeft ;
             timeLeft--;
         } else {
-            clearInterval(timeInterval)
+            clearInterval(timeInterval);
             timerEl.textContent = "";
         }
     }, 1000);
 };
-
-// create elements for start page
-var body = document.body;
-var divHeader = document.createElement("div");
-var h1El = document.createElement("h1");
-var divEl = document.createElement("div");
-var parEl = document.createElement("p");
-var divButton = document.createElement("div");
-var startButton = document.createElement("button");
-var answerDiv = document.createElement("div")
-var correctAnswer = document.createElement("h3")
-var incorrectAnswer = document.createElement("h3")
-
-
-// add text content
-h1El.textContent = "Coding Quiz";
-parEl.textContent = "Try to answer the following coding questions within the time limit. Note that you will be penalized 10 seconds for each incorrect answer! Good luck!";
-startButton.textContent = "Start Quiz!"
-correctAnswer.textContent = "Correct!"
-incorrectAnswer.textContent = "Incorrect!"
-
-// append elements
-body.appendChild(divHeader);
-divHeader.appendChild(h1El);
-divHeader.appendChild(divEl);
-divEl.appendChild(parEl);
-divEl.appendChild(divButton);
-divButton.appendChild(startButton);
-body.appendChild(answerDiv)
-
-
-// give elements classes
-h1El.className = "start";
-divEl.className = "start-div";
-divButton.className = "div-button";
-startButton.className = "button";
-
 
 // hide start pages elements
 var hideStartPage = function() {
@@ -99,11 +77,7 @@ var questionArr = [
 
 // define next question function
 var showNextQuestion = function() { 
-    // show where you are in the array
-    var currentQuestionIndex = 0;
     var questionObj = questionArr[currentQuestionIndex];
-    var answerLabel;
-    var answerButton;
     
     console.log(questionObj);
     for (var i = 0; i < questionObj.answers.length; i++) {
@@ -112,6 +86,8 @@ var showNextQuestion = function() {
         // construct button and use answer as label
         answerButton = document.createElement("button");
         answerButton.innerHTML = answerLabel;
+        // give button same style as start button
+        answerButton.className = "buttons";
         // verify this is correct answer
         if (answerLabel === questionObj.correctAnswer) {
             answerButton.dataset.correct = true;
