@@ -1,14 +1,16 @@
 // declare timer variable
 var timerEl = document.getElementById("countdown");
 var body = document.body;
-var answerDiv = document.querySelector(".answers")
+var answerDiv = document.querySelector(".answers");
+var questionsDiv = document.querySelector(".questions");
 var startButton = document.querySelector(".div-button");
 var divHeader = document.querySelector(".welcome");
 var results = document.createElement("h3");
-body.appendChild(results)
+body.appendChild(results);
 var answerLabel;
 var answerButton;    
 var currentQuestionIndex = 0;
+var score = document.getElementById("score");
 
 // timer function
 var startTimer = function() {
@@ -66,21 +68,26 @@ var questionArr = [
     }
 ]
 
-
-
-
 // define next question function
 var showNextQuestion = function() { 
     // show where you are in the array
     var questionObj = questionArr[currentQuestionIndex];
 
-    console.log(questionObj);
+    console.log(questionObj); 
+    questionLabel = questionObj.question;
+    questionH1 = document.createElement("h1");
+    questionH1.textContent = questionLabel;
+    body.appendChild(questionH1);
+
     for (var i = 0; i < questionObj.answers.length; i++) {
+       
         // get answers from array
         answerLabel = questionObj.answers[i];
         // construct button and use answer as label
         answerButton = document.createElement("button");
         answerButton.innerHTML = answerLabel;
+        body.appendChild(answerButton)
+
         // give button same class
         answerButton.className = "buttons";
         // verify this is correct answer
@@ -100,6 +107,7 @@ var showNextQuestion = function() {
         currentQuestionIndex++;
         showNextQuestion();
         });
+
     }
     // render 4 possible answers
 
@@ -112,10 +120,11 @@ var showNextQuestion = function() {
 
     console.log(answerLabel);
  
-    body.appendChild(answerButton)
 
 
     // each click must respond to a click event
 
 }
+
+
 
