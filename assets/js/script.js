@@ -1,20 +1,14 @@
 // declare timer variable
 var timerEl = document.getElementById("countdown");
-// declare global variables// show where you are in the array
-    var currentQuestionIndex = 0;
-    
 var body = document.body;
 var answerDiv = document.querySelector(".answers")
 var startButton = document.querySelector(".div-button");
 var divHeader = document.querySelector(".welcome");
-var correctAnswer = document.createElement("h3");
-var incorrectAnswer = document.createElement("h3");
+var results = document.createElement("h3");
+body.appendChild(results)
 var answerLabel;
-var answerButton;
-var timeLeft;
-// text content
-correctAnswer.textContent = "Correct!";
-incorrectAnswer.textContent = "Incorrect!";
+var answerButton;    
+var currentQuestionIndex = 0;
 
 // timer function
 var startTimer = function() {
@@ -77,8 +71,9 @@ var questionArr = [
 
 // define next question function
 var showNextQuestion = function() { 
+    // show where you are in the array
     var questionObj = questionArr[currentQuestionIndex];
-    
+
     console.log(questionObj);
     for (var i = 0; i < questionObj.answers.length; i++) {
         // get answers from array
@@ -86,7 +81,7 @@ var showNextQuestion = function() {
         // construct button and use answer as label
         answerButton = document.createElement("button");
         answerButton.innerHTML = answerLabel;
-        // give button same style as start button
+        // give button same class
         answerButton.className = "buttons";
         // verify this is correct answer
         if (answerLabel === questionObj.correctAnswer) {
@@ -97,11 +92,12 @@ var showNextQuestion = function() {
         // add event listener to buttons
         answerButton.addEventListener("click", function() {
         if (this.dataset.correct === "true") {
-            answerDiv.appendChild(correctAnswer);
+            results.textContent = "Correct!";
         } else {
-            answerDiv.appendChild(incorrectAnswer)
+            results.textContent = "Incorrect!"
             timeLeft -= 10;
         }
+        currentQuestionIndex++;
         showNextQuestion();
         });
     }
