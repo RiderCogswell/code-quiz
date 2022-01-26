@@ -12,7 +12,8 @@ var answerButton;
 var currentQuestionIndex = 0;
 var score = document.getElementById("score");
 var initialsPage = document.getElementById("enter-initials");
-initialsPage.className = "hide";
+initialsPage.style.display = "none";
+var submitInitials = document.getElementById("submitInitials")
 
 // timer function
 var startTimer = function() {
@@ -25,6 +26,11 @@ var startTimer = function() {
         } else {
             clearInterval(timeInterval);
             timerEl.textContent = "";
+        }
+        if (timeLeft === 0 || questionArr.length === currentQuestionIndex + 1) {
+            clearInterval(timeInterval);
+            enterInitials();
+            score.textContent = "Final score is " + timeLeft + ".";
         }
     }, 1000);
 };
@@ -70,6 +76,14 @@ var questionArr = [
     }
 ]
 
+// save tasks 
+submitInitials.addEventListener("click", function() {
+    var saveInitials = document.getElementById("initials");
+
+    localStorage.setItem("Initials", JSON.stringify(saveInitials));
+    localStorage.setItem("Score", JSON.stringify(timeLeft + 10));
+})
+
 // end game function
 var gameOver = function() {
     questionsDiv.textContent = "";
@@ -77,8 +91,11 @@ var gameOver = function() {
 
 // enter initials page 
 var enterInitials = function() {
-    initialsPage.removeAttribute("class", hide)
-    initialsPage.class("show")
+    timerEl.textContent = "";
+    results.style.display = "none";
+    if (initialsPage.style.display === "none") {
+        initialsPage.style.display = "block";
+    }
 }
 // define next question function
 var showNextQuestion = function() { 
@@ -117,6 +134,7 @@ var showNextQuestion = function() {
             timeLeft -= 10;
         }
         if (timeLeft === 0 || questionArr.length - 1) {
+            
             gameOver();
         }
         currentQuestionIndex++;
