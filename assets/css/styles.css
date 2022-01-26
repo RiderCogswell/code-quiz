@@ -65,6 +65,10 @@
 .hide {
     display: none;
 }
+
+.show {
+    display: initial !important;
+}
 /* initials page */ 
 
 .enter-initials {

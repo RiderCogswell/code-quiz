@@ -1,4 +1,4 @@
-// declare timer variable
+// declare global variables
 var timerEl = document.getElementById("countdown");
 var body = document.body;
 var answerDiv = document.querySelector(".answers");
@@ -11,6 +11,8 @@ var answerLabel;
 var answerButton;    
 var currentQuestionIndex = 0;
 var score = document.getElementById("score");
+var initialsPage = document.getElementById("enter-initials");
+initialsPage.className = "hide";
 
 // timer function
 var startTimer = function() {
@@ -68,6 +70,16 @@ var questionArr = [
     }
 ]
 
+// end game function
+var gameOver = function() {
+    questionsDiv.textContent = "";
+}
+
+// enter initials page 
+var enterInitials = function() {
+    initialsPage.removeAttribute("class", hide)
+    initialsPage.class("show")
+}
 // define next question function
 var showNextQuestion = function() { 
     // show where you are in the array
@@ -77,7 +89,7 @@ var showNextQuestion = function() {
     questionLabel = questionObj.question;
     questionH1 = document.createElement("h1");
     questionH1.textContent = questionLabel;
-    body.appendChild(questionH1);
+    questionsDiv.appendChild(questionH1);
 
     for (var i = 0; i < questionObj.answers.length; i++) {
        
@@ -86,7 +98,7 @@ var showNextQuestion = function() {
         // construct button and use answer as label
         answerButton = document.createElement("button");
         answerButton.innerHTML = answerLabel;
-        body.appendChild(answerButton)
+        questionsDiv.appendChild(answerButton)
 
         // give button same class
         answerButton.className = "buttons";
@@ -104,26 +116,15 @@ var showNextQuestion = function() {
             results.textContent = "Incorrect!"
             timeLeft -= 10;
         }
+        if (timeLeft === 0 || questionArr.length - 1) {
+            gameOver();
+        }
         currentQuestionIndex++;
         showNextQuestion();
         });
 
     }
-    // render 4 possible answers
-
-    // select each answer
-
-    // create 4 buttons
-    
-    // append to page
-    
-
     console.log(answerLabel);
- 
-
-
-    // each click must respond to a click event
-
 }
 
 
