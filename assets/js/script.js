@@ -14,6 +14,8 @@ var score = document.getElementById("score");
 var initialsPage = document.getElementById("enter-initials");
 initialsPage.style.display = "none";
 var submitInitials = document.getElementById("submitInitials")
+var highscoresDiv = document.getElementById("highscores");
+
 
 // timer function
 var startTimer = function() {
@@ -27,9 +29,8 @@ var startTimer = function() {
             clearInterval(timeInterval);
             timerEl.textContent = "";
         }
-        if (timeLeft === 0 || questionArr.length === currentQuestionIndex + 1) {
+        if (timeLeft === 0 || currentQuestionIndex === questionArr.length) {
             clearInterval(timeInterval);
-            enterInitials();
             score.textContent = "Final score is " + timeLeft + ".";
         }
     }, 1000);
@@ -78,14 +79,22 @@ var questionArr = [
 
 // save tasks 
 submitInitials.addEventListener("click", function() {
-    var saveInitials = document.getElementById("initials");
-
-    localStorage.setItem("Initials", JSON.stringify(saveInitials));
-    localStorage.setItem("Score", JSON.stringify(timeLeft + 10));
+    var saveInitials = document.getElementById("initials").value;
+    var initials = JSON.parse(window.localStorage.getItem('Initials')) || [];
+    console.log(saveInitials);
+    var newScore = {
+                    initials: saveInitials,
+                    score: timeLeft
+                };
+    initials.push(newScore);
+    localStorage.setItem("Initials", JSON.stringify(initials));
 })
+
+
 
 // end game function
 var gameOver = function() {
+    enterInitials();
     questionsDiv.textContent = "";
 }
 
@@ -101,7 +110,7 @@ var enterInitials = function() {
 var showNextQuestion = function() { 
     // show where you are in the array
     var questionObj = questionArr[currentQuestionIndex];
-
+    questionsDiv.innerHTML = ""
     console.log(questionObj); 
     questionLabel = questionObj.question;
     questionH1 = document.createElement("h1");
@@ -133,12 +142,15 @@ var showNextQuestion = function() {
             results.textContent = "Incorrect!"
             timeLeft -= 10;
         }
-        if (timeLeft === 0 || questionArr.length - 1) {
-            
+        if (timeLeft === 0) {
             gameOver();
         }
-        currentQuestionIndex++;
-        showNextQuestion();
+        if(currentQuestionIndex === questionArr.length) {
+            gameOver();
+        } else {
+            showNextQuestion();
+            currentQuestionIndex++;
+        }
         });
 
     }
