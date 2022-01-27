@@ -16,6 +16,29 @@ initialsPage.style.display = "none";
 var submitInitials = document.getElementById("submitInitials")
 var highscoresDiv = document.getElementById("highscores");
 
+// question array
+var questionArr = [
+    {
+        question: "Commonly used data types DO NOT include:",
+        answers: ['strings', 'booleans', 'alerts', 'numbers'],
+        correctAnswer: 'alerts'
+    },
+    {
+        question: "The condition in an if / else  statement is enclosed with?",
+        answers: ['curly braces', 'parenthesis', 'square brackets', 'quotes'],
+        correctAnswer: 'parenthesis'
+    },
+    {
+        question: "Arrays in JavaScript can be used to hold?",
+        answers: ['numbers & strings', 'booleans', 'other arrays', 'all of the above'],
+        correctAnswer: 'all of the above'
+    },
+    {
+        question: "A very useful tool when printing content to the debugger is:",
+        answers: ['JavaScript', 'terminal/bash', 'for-loops', 'console.log()'],
+        correctAnswer: 'console.log()'
+    }
+]
 
 // timer function
 var startTimer = function() {
@@ -53,29 +76,7 @@ startButton.addEventListener("click", function () {
     startQuiz();
 })
 
-// question array
-var questionArr = [
-    {
-        question: "Commonly used data types DO NOT include:",
-        answers: ['strings', 'booleans', 'alerts', 'numbers'],
-        correctAnswer: 'alerts'
-    },
-    {
-        question: "The condition in an if / else  statement is enclosed with?",
-        answers: ['curly braces', 'parenthesis', 'square brackets', 'quotes'],
-        correctAnswer: 'parenthesis'
-    },
-    {
-        question: "Arrays in JavaScript can be used to hold?",
-        answers: ['numbers & strings', 'booleans', 'other arrays', 'all of the above'],
-        correctAnswer: 'all of the above'
-    },
-    {
-        question: "A very useful tool when printing content to the debugger is:",
-        answers: ['JavaScript', 'terminal/bash', 'for-loops', 'console.log()'],
-        correctAnswer: 'console.log()'
-    }
-]
+
 
 // save tasks 
 submitInitials.addEventListener("click", function() {
@@ -88,9 +89,21 @@ submitInitials.addEventListener("click", function() {
                 };
     initials.push(newScore);
     localStorage.setItem("Initials", JSON.stringify(initials));
+    showHighscores();
 })
 
-
+// show highscores
+var showHighscores = function() {
+    initialsPage.style.display = "none";
+    var highHeader = document.createElement("h3");
+    highHeader.textContent = "Highscores!"
+    highscoresDiv.appendChild(highHeader)
+    highHeader.className = "start";
+    var highList = document.createElement("li");
+    highList.className = "start-div";
+    body.appendChild(highscoresDiv);
+    highscoresDiv.appendChild(highList);
+}
 
 // end game function
 var gameOver = function() {
