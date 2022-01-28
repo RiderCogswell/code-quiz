@@ -95,12 +95,15 @@ submitInitials.addEventListener("click", function() {
 // show highscores
 var showHighscores = function() {
     initialsPage.style.display = "none";
+    // header
     var highHeader = document.createElement("h3");
     highHeader.textContent = "Highscores!"
     highscoresDiv.appendChild(highHeader)
     highHeader.className = "start";
+    // list items (highscores)
     var highList = document.createElement("li");
     highList.className = "start-div";
+    highList.innerHTML = window.localStorage.getItem("Initials");
     body.appendChild(highscoresDiv);
     highscoresDiv.appendChild(highList);
 }
